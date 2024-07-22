@@ -53,15 +53,14 @@ public class WorldBootstrap {
 
 
     public static class Helpers {
-        private static void initializeWorldConfig(
-                LevelStorageSource.LevelStorageAccess levelStorageAccess,
-                boolean newWorld
+        public static void initializeWorldConfig(
+                LevelStorageSource.LevelStorageAccess levelStorageAccess
         ) {
             File levelPath = levelStorageAccess.getLevelPath(LevelResource.ROOT).toFile();
-            initializeWorldConfig(levelPath, newWorld);
+            initializeWorldConfig(levelPath);
         }
 
-        private static void initializeWorldConfig(File levelBaseDir, boolean newWorld) {
+        private static void initializeWorldConfig(File levelBaseDir) {
             WorldConfig.load(new File(levelBaseDir, "data"));
         }
 
@@ -269,7 +268,7 @@ public class WorldBootstrap {
             boolean newWorld, boolean isServer
     ) {
         try {
-            Helpers.initializeWorldConfig(levelStorageAccess, newWorld);
+            Helpers.initializeWorldConfig(levelStorageAccess);
             WorldEventsImpl.BEFORE_WORLD_LOAD.emit(e -> e.prepareWorld(
                     levelStorageAccess,
                     dimensions,

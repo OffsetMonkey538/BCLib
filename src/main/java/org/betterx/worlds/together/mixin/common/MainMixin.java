@@ -18,6 +18,7 @@ abstract public class MainMixin {
     @ModifyVariable(method = "main", ordinal = 0, at = @At(value = "INVOKE", shift = At.Shift.AFTER, target = "Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;getSummary()Lnet/minecraft/world/level/storage/LevelSummary;"))
     private static LevelStorageSource.LevelStorageAccess bc_createAccess(LevelStorageSource.LevelStorageAccess levelStorageAccess) {
         bcl_levelStorageAccess = levelStorageAccess;
+        WorldBootstrap.Helpers.initializeWorldConfig(levelStorageAccess);
         WorldBootstrap.DedicatedServer.applyWorldPatches(levelStorageAccess);
         return levelStorageAccess;
     }
